@@ -1,6 +1,5 @@
 import datetime
 import json
-from tkinter import CASCADE
 
 from django.db import models
 from django.utils import timezone
