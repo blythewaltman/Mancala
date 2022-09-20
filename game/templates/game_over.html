@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/mancala.css" />
+    </head>
+    <body>
+        <form action="{% url 'welcome'%}">
+            {% csrf_token %}
+            <button id="quit-game" type="submit">Quit</button>
+        </form>
+        <div class="player-container">
+            {% if data.winner < 2 %}
+                <p id="turn_info">The winner is {{data.winner_name}}</p>
+            {% else %}
+                <p id="turn_info">The game was a tie!</p>
+            {% endif %}
+        </div>
+        <div class="game_container">
+            <div class ="game_pieces">
+                <div class="mancala" style="--urlname: url({{data.player_0_mancala_image}})">
+                    <span class="mancalatexttop">{{data.player_0_mancala_val}}</span>
+                </div>
+                <div class="row">
+                    {% for array in data.pits %}
+                        <div class="column">
+                        {% for pit in array %}
+                            {% if forloop.parentloop.counter0 == 0 %}
+                                <button id="button1" disabled="true" class="pit" style="--urlname: url({{pit.image}})"><span class="pittexttop">{{pit.val}}</span></button>
+                            {% else %}
+                                <button id="button2" disabled="true" class="pit" style="--urlname: url({{pit.image}})"><span class="pittextbottom">{{pit.val}}</span></button>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="mancala" style="--urlname: url({{data.player_1_mancala_image}})">
+                    <span class="mancalatexttop">{{data.player_1_mancala_val}}</span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

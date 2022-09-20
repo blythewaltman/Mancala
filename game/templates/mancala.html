@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/mancala.css" />
+    </head>
+    <body>
+        <button id="open-rules">Rules</button>
+        <form action="{% url 'welcome'%}">
+            {% csrf_token %}
+            <button id="quit-game" type="submit">Quit</button>
+        </form>
+        <div id="rules">
+            <div class="rules-content">
+                {% if data.is_single_player %}
+                    <h3>Mancala Rules</h3>
+                    The object of the game is to collect as many stones in your mancala (the leftmost store) as possible.
+                    <ul>
+                        <li>You and your opponet take turns moving the stones</li>
+                        <li>Each turn, you select a pit from the top row and distribute all of its stones in a counterclockwise direction</li>
+                        <li>You can only move the stones on your side</li>
+                        <li>If the last stone of a move landed in your mancala, then you get to move again</li>
+                        <li>If the last stone of a move landed in an empty pit on your side and there are some stones in the opposite pit, then the stones in the two pits will be placed in your mancala</li>
+                        <li>When one player no longer has any stones in any of their pits, the game ends. The other player moves all remaining stones to their store, and the player with the most stones in their store wins</li>
+                    </ul>
+                {% else %}
+                <h3>Mancala Rules</h3>
+                    The object of the game is to collect as many stones in your mancala as possible.
+                    <ul>
+                        <li>You and your opponet take turns moving the stones</li>
+                        <li>Player one selects from the top row and player two selects from the bottom row</li>
+                        <li>Each turn, you select a pit from your respective row and distribute all of its stones in a counterclockwise direction</li>
+                        <li>You can only move the stones on your side</li>
+                        <li>If the last stone of a move landed in your mancala, then you get to move again</li>
+                        <li>If the last stone of a move landed in an empty pit on your side and there are some stones in the opposite pit, then the stones in the two pits will be placed in your mancala</li>
+                        <li>When one player no longer has any stones in any of their pits, the game ends. The other player moves all remaining stones to their store, and the player with the most stones in their store wins</li>
+                    </ul>
+                {% endif %}
+                <button id="close-rules">Close</button>
+            </div>
+        </div>
+        <form action="{% url 'get_computer_move' game_id=data.game_id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="make_computer_move"  style="display: none;"></button>
+        </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            if("{{data.is_computers_turn}}" == 0){
+                setTimeout(function(){
+                var turn_info = document.getElementById("turn_info")
+                turn_info.innerHTML = 'The computer is deciding its move...'
+                }, 2000)
+                setTimeout(function(){
+                    document.getElementById("make_computer_move").click()
+                }, 5000) 
+        }
+        </script>
+        <div class="player-container">
+            {% if data.repeat_turn %}
+                <h3 id="turn_info"> It's {{data.player_name}}'s turn again!</h3>
+            {% else %}
+                <h3 id="turn_info">It's {{data.player_name}}'s turn</h3>
+            {% endif %}
+        </div>
+        <div class="game_container">
+            <!-- <div class="game_board_background"></div> -->
+            <div class ="game_pieces">
+                <div class="mancala" style="--urlname: url({{data.board_data.0.0.image}})">
+                    <span class="mancalatexttop">{{data.board_data.0.0.val}}</span>
+                </div>
+                <div class="row">
+                    {% for array in data.pits %}
+                        <div class="column">
+                        {% for pit in array %}
+                            <form action="{% url 'submit-human-move' game_id=data.game_id row=forloop.parentloop.counter0 col=forloop.counter  %}" method="post">
+                                {% csrf_token %}
+                                    {% if pit.valid and data.is_computers_turn != 0 %}
+                                        {% if forloop.parentloop.counter0 == 0 %}
+                                            <button id="button1" type="submit" class="pit" style="--urlname: url({{pit.image}})"><span class="pittexttop">{{pit.val}}</span></button>
+                                        {% else %}
+                                            <button id="button2" type="submit" class="pit" style="--urlname: url({{pit.image}})"><span class="pittextbottom">{{pit.val}}</span></button>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if forloop.parentloop.counter0 == 0 %}
+                                            <button id="button3" type="submit" disabled="True" class="pitdisabled" style="--urlname: url({{pit.image}})"><span class="pitdisabledtexttop">{{pit.val}}</span></button>
+                                        {% else %}
+                                            <button id="button4" type="submit" disabled="True" class="pitdisabled" style="--urlname: url({{pit.image}})"><span class="pitdisabledtextbottom">{{pit.val}}</span></button>
+                                        {% endif %}
+                                    {% endif %}
+                            </form>
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="mancala" style="--urlname: url({{data.board_data.1.5.image}})">
+                    <span class="mancalatexttop">{{data.board_data.1.5.val}}</span>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        var rules = document.getElementById("rules")
+        var openRules = document.getElementById("open-rules")
+        var closeRules = document.getElementById('close-rules')
+        
+        openRules.addEventListener('click', () => {
+            rules.style.display = "block";
+        })
+        
+        closeRules.addEventListener('click', () => {
+            rules.style.display = "none";
+        })
+    </script>
+</html>

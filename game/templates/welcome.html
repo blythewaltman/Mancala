@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/welcome.css" />
+    </head>
+    <body>
+            <h1 class="title"></h1>
+            <div class="container">
+                <form action="{% url 'single-player'%}" method="get">
+                    <button type="submit" class="option1"></button>
+                </form>
+                <form action="{% url 'multi-player'%}" method="get">
+                    <button type="submit" class="option2"></button>
+                </form>
+            </div>
+    </body>
+</html>

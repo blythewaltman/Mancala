@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/multi_player.css" />
+    </head>
+    <body>
+        <div class="title">
+            <h1>Multiplayer</h1>
+        </div>
+    <form class="players" action="{%url 'submit-names' %}" method = "post">
+    {% csrf_token %}
+            <div class="name-input-group">
+                <input type="text" class="name-one-input" autocomplete="off" name="player_one_name" id="player_one_name" placeholder="Player One Name" />
+                <input type="text" class="name-two-input"  autocomplete="off" name="player_two_name" id="player_two_name" placeholder="Player Two Name" />
+            </div>
+            <input type="submit" value="Play">
+    </form>
+</html>
