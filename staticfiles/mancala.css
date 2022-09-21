@@ -1,0 +1,267 @@
+body{
+    display: block;
+    background-color: #BAC9BF;
+}
+
+#open-rules{
+    position: absolute;
+    top:3;
+    right:5;
+    height:4vh;
+    width:10vh;
+    border-radius: 6px;
+    border:none;
+    font-size: 2vh;
+}
+
+#rules {
+	display: none;
+	background-color: rgba(0,0,0,0.5);
+	position: absolute;
+	height: 100vh;
+	width: 100%;
+}
+
+.rules-content {
+	position: relative;
+	padding: 5vh;
+	margin: 0 auto;
+	background-color: #BAC9BF;
+	width: 100vh;
+    height: 50vh;
+    font-size: 2vh;
+	/* top: 1vh; */
+    z-index: 20;
+    font-family: Helvetica;
+    border-radius: 6px;
+}
+
+#close-rules{
+    border-radius: 6px;
+    border:none;
+    height:4vh;
+    width:10vh;
+    font-size: 2vh;
+}
+
+#quit-game{
+    position: fixed;
+    top: 3;
+    right: 3vh;
+    height:4vh;
+    width:10vh;
+    border-radius: 6px;
+    border: none;
+    font-size: 2vh;
+}
+
+.player-container{
+    display: flex;
+    justify-content:center; /*  items are centered along the line */
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 5vh;
+    width:100%;
+}
+
+.game_container{
+    display: flex;
+    width:100%;
+    height:80vh;
+    justify-content: center;
+}
+
+/* .game_board_background{
+    background: url(background.jpg);
+    width:100%;
+    height:100%;
+    border-radius: 25px;
+} */
+
+.game_pieces{
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    /* gap: 10px; */
+    gap: 9vh;
+    align-items: center;
+    width:100%;
+    height:100%;
+    background: url(background.jpg);
+    border-radius: 5vh;
+    justify-content: center;
+}
+
+.row{
+    display:flex;
+    flex-direction:column;
+    /* gap: 50px; */
+    gap:9vh;
+}
+
+.mancala{
+    width:10vh;
+    height:20vh;
+    /* position: relative; */
+    /* display: inline-block; */
+    padding:12vh 10vh;
+    background: var(--urlname);
+    background-position:center;
+    /* background-size:  510px 450px; */
+    background-size:  70vh 50vh;
+    background-repeat: no-repeat;
+}
+
+.column{
+    display:flex;
+    flex-direction:row;
+    gap:2vh;
+}
+
+.pit {
+    position: relative;
+    display: inline-block;
+    /* padding:80px; */
+    padding:10vh 10vh;
+    background: var(--urlname);
+    background-position:center;
+    /* background-size:  300px 250px; */
+    background-size:  40vh 30vh;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    border: none;
+  }
+
+.pitdisabled {
+    position: relative;
+    display: inline-block;
+    padding:10vh 10vh;
+    background: var(--urlname);
+    background-position:center;
+    background-size:  40vh 30vh;
+    background-repeat: no-repeat;
+    cursor: not-allowed;
+    border: none;
+  }
+
+.mancala .mancalatexttop{
+    visibility: visible;
+    /* background-color: #2A2A27; */
+    color: #BAC9BF;
+    width: 3vh;
+    text-align: center;
+    border-radius: 3vh;
+    padding: 1vh;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 5vh;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 4vh;
+    /* left: 10%; */
+    margin-left: 2vh;
+}  
+  
+/* Tooltip text */
+.pit .pittexttop {
+    visibility: hidden;
+    /* background-color: #2A2A27; */
+    color: #BAC9BF;
+    width: 3vh;
+    text-align: center;
+    border-radius: 3vh;
+    padding: 1vh;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 5vh;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -10vh;
+    /* left: 10%; */
+    margin-left: -3vh;
+}
+
+/* Tooltip text */
+.pitdisabled .pitdisabledtexttop {
+    visibility: hidden;
+    /* background-color: #2A2A27; */
+    color: #BAC9BF;
+    width: 3vh;
+    text-align: center;
+    border-radius: 3vh;
+    padding: 1vh;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 5vh;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -10vh;
+    /* left: 10%; */
+    margin-left: -3vh;
+}
+
+.pit .pittextbottom {
+    visibility: hidden;
+    /* background-color: #2A2A27; */
+    color: #BAC9BF;
+    width: 3vh;
+    text-align: center;
+    border-radius: 3vh;
+    padding: 1vh;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 5vh;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 22vh;
+    /* left: 10%; */
+    margin-left: -3vh;
+}
+
+.pitdisabled .pitdisabledtextbottom {
+    visibility: hidden;
+    /* background-color: #2A2A27; */
+    color: #BAC9BF;
+    width: 3vh;
+    text-align: center;
+    border-radius: 3vh;
+    padding: 1vh;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 5vh;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 22vh;
+    /* left: 10%; */
+    margin-left: -3vh;
+}
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+.pit:hover .pittexttop {
+    visibility: visible;
+}
+.pitdisabled:hover .pitdisabledtexttop {
+    visibility: visible;
+}
+
+.pit:hover .pittextbottom {
+    visibility: visible;
+}
+
+.pitdisabled:hover .pitdisabledtextbottom {
+    visibility: visible;
+}
+
+li{
+    margin: 2vh;
+  }
